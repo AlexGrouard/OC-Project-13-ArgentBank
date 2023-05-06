@@ -1,0 +1,7 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.bg_dark {
+    @include darkBG;
+    @include main;
+}

@@ -1,5 +1,6 @@
 import styles from "./User.module.scss"
-function User(): JSX.Element {
+
+function User({ id }): JSX.Element {
 	return <div>Profile</div>
 }
 
