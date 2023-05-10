@@ -2,10 +2,29 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
 import { LoginState } from "../Type"
 
-const initialState: LoginState = { isLogged: false, token: null, error: null }
+
+// TODO:
+// Login request :
+// Login OK
+// Login KO
+// Logout
+const initialState: 
+const loginSlice = createSlice({
+	name: "auth",
+	initialState,
+	reducers: {
+		loginRequest : (state) => {},
+		loginSucess : (state, action: PayloadAction<string>) => {},
+		loginFailure :  (state, action: PayloadAction<string>) => {},
+		logout:  (state) => {
+			state = initialState
+		}
+	}
+})
+/* const initialState: LoginState = { isLogged: false, token: null, error: null }
 
 const loginSlice = createSlice({
-	name: "login",
+	name: "auth",
 	initialState,
 	reducers: {
 		loginSucess: (state, action: PayloadAction<string>) => {
@@ -24,6 +43,6 @@ const loginSlice = createSlice({
 			state.error = null
 		},
 	},
-})
-export const { loginSucess, loginFailure, logout } = loginSlice.actions
+}) */
+export const { loginRequest, loginSucess, loginFailure, logout } = loginSlice.actions
 export default loginSlice.reducer

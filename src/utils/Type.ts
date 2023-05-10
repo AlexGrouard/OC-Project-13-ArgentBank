@@ -13,15 +13,15 @@ export type LoginResponse = {
 }
 
 export type ProfilePostResponse = {
-    status: number,
-    message: string,
-    body: UserProfile
+	status: number
+	message: string
+	body: UserProfile
 }
 
 export type ProfilePutResponse = {
-    status: number,
-    message: string,
-    body: UserId
+	status: number
+	message: string
+	body: UserId
 }
 
 export type LoginState = {

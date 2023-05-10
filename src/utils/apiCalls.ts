@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import type {
 	LoginResponse,
@@ -7,13 +8,20 @@ import type {
 
 const url = "http://localhost:3001"
 
-export const login = async (email: string, password: string) => {
-	const response = await axios.post<LoginResponse>(`${url}/user/login`, {
-		email,
-		password,
-	})
-	return response.data
-}
+export const login = createAsyncThunk(
+	"auth/login",
+	async ({ email, password }: { email: string; password: string }) => {
+		try {
+			const { data } = await axios.post<LoginResponse>(`${url}/user/login`, {
+				email,
+				password,
+			})
+			return data.token
+		} catch (error) {
+			console.log(error)
+		}
+	}
+)
 
 export const profile = async (token: string) => {
 	const response = await axios.post<ProfilePostResponse>(
