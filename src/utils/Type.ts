@@ -25,6 +25,8 @@ export type ProfilePutResponse = {
 }
 
 export type LoginState = {
+	email: string
+	password: string
 	isLogged: boolean
 	token: string | null
 	error: string | null

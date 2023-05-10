@@ -1,7 +1,12 @@
-import { useEffect } from "react"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-//import { loginSucess, loginFailure, logout } from "../../utils/slices/loginSlice"
+import { login } from "../../utils/apiCalls"
+/* import {
+	loginFailure,
+	loginRequest,
+	loginSucess,
+	logout,
+} from "../../utils/slices/loginSlice" */
 import styles from "./SignIn.module.scss"
 
 function SignIn(): JSX.Element {
@@ -20,11 +25,9 @@ function SignIn(): JSX.Element {
 	// else display an error message
 	// if valid and the remember button is ticked then put the token into localStorage
 
-	useEffect(() => {
-	},[])
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
-		dispatch()
+		login(email, password)
 	}
 
 	if (error) {
