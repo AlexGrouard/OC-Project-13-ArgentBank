@@ -27,7 +27,7 @@ function SignIn(): JSX.Element {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
-		login(email, password)
+		//login(email, password)
 	}
 
 	if (error) {

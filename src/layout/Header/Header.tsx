@@ -16,7 +16,7 @@ function Header(): JSX.Element {
 				<h1 className={styles.sr_only}>Argent Bank</h1>
 			</Link>
 			<div className={styles.main_nav_item}>
-				<NavLink to='/sign-in'>
+				<NavLink to='/login'>
 					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign In
 				</NavLink>
 			</div>
