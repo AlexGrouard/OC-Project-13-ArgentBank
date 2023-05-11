@@ -1,10 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
-
-interface ProfileState {
-	firstName: string
-	lastName: string
-}
+import type { ProfileState } from "../Type"
 
 //the initial state of the reducer is supposed to be what is currently in the DB
 const initialState = { firstName: "", lastName: "" } as ProfileState
@@ -22,4 +18,5 @@ const profileSlice = createSlice({
 	},
 })
 export const { modifyFirstName, modifyLastName } = profileSlice.actions
+export const selectProfile = (state: { profile: ProfileState }) => state.profile
 export default profileSlice.reducer

@@ -1,45 +1,49 @@
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { login } from "../../utils/apiCalls"
-/* import {
-	loginFailure,
-	loginRequest,
-	loginSucess,
-	logout,
-} from "../../utils/slices/loginSlice" */
+import { loginApi, profile } from "../../utils/apiCalls"
+import { login } from "../../utils/slices/loginSlice"
+import {
+	modifyFirstName,
+	modifyLastName,
+} from "../../utils/slices/profileSlice"
+import Profile from "../Profile/Profile"
 import styles from "./SignIn.module.scss"
 
 function SignIn(): JSX.Element {
-	let errorMsg = null
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [remember, setRemember] = useState(false)
-	const [error, setError] = useState(false)
+	const [errorMsg, setError] = useState("")
+
 	const dispatch = useDispatch()
 
-	//LOGIC:
-	// take the user input from the page
-	// make a post request for the API
-	// get the valid token
-	// dispatch the new state to the store
-	// else display an error message
-	// if valid and the remember button is ticked then put the token into localStorage
-
-	const handleSubmit = (e: any) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault()
-		//login(email, password)
+		const { token } = await loginApi(email, password)
+		if (token === "error") {
+			console.log("error detected")
+			setError("Invalid username or password")
+		} else {
+			dispatch(login({ token, remember }))
+
+			let { body } = await profile(token)
+			console.log(body)
+
+			/*
+			const { firstName, lastName, email, id } = profile(token)
+			dispatch(modifyFirstName(firstName))
+			dispatch(modifyLastName(lastName))
+			//link to profile
+			return <Profile firstName={firstName} lastName={lastName} />  */
+		}
 	}
 
-	if (error) {
-		setError(true)
-		return (errorMsg = (
-			<p className={styles.error}>Invalid username or password</p>
-		))
-	}
 	return (
 		<main className={styles.bg_dark}>
 			<section className={styles.sign_in_content}>
-				<i className='fa fa-user-circle sign-in-icon'></i>
+				<FontAwesomeIcon icon={icon({ name: "circle-user" })} />
 				<h1>Sign In</h1>
 				<form onSubmit={handleSubmit}>
 					<div className={styles.input_wrapper}>
@@ -65,7 +69,7 @@ function SignIn(): JSX.Element {
 								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</label>
-						{errorMsg}
+						{errorMsg && <p className={styles.error}> {errorMsg} </p>}
 					</div>
 					<div className={styles.input_remember}>
 						<label>

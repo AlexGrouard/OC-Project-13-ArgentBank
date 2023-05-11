@@ -1,33 +1,29 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
-import { LoginState } from "../Type"
+import { LoginState,LoginResponse } from "../Type"
 
-
-// TODO:
-// Login request :
-// Login OK
-// Login KO
-// Logout
-const initialState: LoginState = { email:"" , password:"", isLogged: false, token: null, error: null }
+//ternaire if local storage vide token null sinon local storage token
+//localStorage.getItem("token") === " " ? (initialState) : (initialState: LoginState = { token: localStorage.getItem("token") })
+const initialState: LoginResponse = { token: "" }
 const loginSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-/* 		loginRequest : (state, action: PayloadAction<string>) => {
-			state.email = action.payload.email
-			state.password = action.payload.password
-		}, */
-		loginSucess : (state, action: PayloadAction<string>) => {
-			state.isLogged = true
-			state.error = null
-			state.token = action.payload
+		login: (
+			state,
+			action: PayloadAction<LoginState>
+		) => {
+			state.token = action.payload.token
+			if (action.payload.remember)
+				localStorage.setItem("token", action.payload.token)
 		},
-		loginFailure :  (state, action: PayloadAction<string>) => {},
-		logout:  (state) => {
+		logout: (state) => {
 			state = initialState
-		}
-	}
+			localStorage.removeItem("token")
+		},
+	},
 })
 
-export const { loginSucess, loginFailure, logout } = loginSlice.actions
+export const { login, logout } = loginSlice.actions
+export const selectToken = (state: { auth: LoginState }) => state.auth.token
 export default loginSlice.reducer

@@ -1,10 +1,38 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
 import Logo from "../../assets/argentBankLogo.png"
+import { logout, selectToken } from "../../utils/slices/loginSlice"
 import styles from "./Header.module.scss"
 
 function Header(): JSX.Element {
+	const token = null
+	const dispatch = useDispatch()
+	let profileMenu
+	//destructurer et recup le prenom
+	function signOut() {
+		dispatch(logout())
+	}
+	if (!token) {
+		profileMenu = (
+			<NavLink to='/login'>
+				<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign In
+			</NavLink>
+		)
+	} else {
+		profileMenu = (
+			<div className={styles.activeMenu}>
+				<NavLink to='/profiles'>
+					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;
+				</NavLink>
+				<button onClick={signOut}>
+					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign
+					out
+				</button>
+			</div>
+		)
+	}
 	return (
 		<nav className={styles.main_nav}>
 			<Link to='/'>
@@ -15,11 +43,8 @@ function Header(): JSX.Element {
 				/>
 				<h1 className={styles.sr_only}>Argent Bank</h1>
 			</Link>
-			<div className={styles.main_nav_item}>
-				<NavLink to='/login'>
-					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign In
-				</NavLink>
-			</div>
+			<div className={styles.main_nav_item}></div>
+			{profileMenu}
 		</nav>
 	)
 }

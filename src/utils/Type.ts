@@ -6,6 +6,8 @@ export type UserId = {
 export type UserProfile = {
 	firstName: string
 	lastName: string
+	id: number
+	email: string
 }
 
 export type LoginResponse = {
@@ -25,9 +27,11 @@ export type ProfilePutResponse = {
 }
 
 export type LoginState = {
-	email: string
-	password: string
-	isLogged: boolean
-	token: string | null
-	error: string | null
+	token: string
+	remember: boolean
+}
+
+export type ProfileState = {
+	firstName: string
+	lastName: string
 }
