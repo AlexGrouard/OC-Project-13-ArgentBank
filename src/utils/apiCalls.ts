@@ -3,7 +3,6 @@ import type {
 	LoginResponse,
 	ProfilePostResponse,
 	ProfilePutResponse,
-	UserProfile,
 } from "./Type"
 
 const url = "http://localhost:3001/api/v1"
@@ -24,15 +23,16 @@ export async function loginApi(
 	}
 }
 
-export async function profile(token: string): Promise<UserProfile | undefined> {
+export async function profile(
+	token: string
+): Promise<ProfilePostResponse | undefined> {
 	try {
 		const { data } = await axios.post(
 			`${url}/user/profile`,
 			{},
 			{ headers: { Authorization: `Bearer ${token}` } }
 		)
-		console.log(data)
-		return data.body
+		return data
 	} catch (error) {
 		console.log(error)
 	}
@@ -43,10 +43,13 @@ export const modifyProfile = async (
 	firstName: string,
 	lastName: string
 ) => {
-	const response = await axios.put<ProfilePutResponse>(`${url}/user/profile`, {
-		token,
-		firstName,
-		lastName,
-	})
+	const response = await axios.put<ProfilePutResponse>(
+		`${url}/user/profile`,
+		{
+			firstName,
+			lastName,
+		},
+		{ headers: { Authorization: `Bearer ${token}` } }
+	)
 	return response.data
 }

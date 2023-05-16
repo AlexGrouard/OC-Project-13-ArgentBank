@@ -6,8 +6,6 @@ export type UserId = {
 export type UserProfile = {
 	firstName: string
 	lastName: string
-	id: number
-	email: string
 }
 
 export type LoginResponse = {
@@ -34,4 +32,9 @@ export type LoginState = {
 export type ProfileState = {
 	firstName: string
 	lastName: string
+}
+
+export type PrivateRouteType = {
+	component: any
+	isAuthenticated: boolean
 }

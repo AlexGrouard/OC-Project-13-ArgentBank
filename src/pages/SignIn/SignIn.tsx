@@ -2,13 +2,13 @@ import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { loginApi, profile } from "../../utils/apiCalls"
 import { login } from "../../utils/slices/loginSlice"
 import {
 	modifyFirstName,
 	modifyLastName,
 } from "../../utils/slices/profileSlice"
-import Profile from "../Profile/Profile"
 import styles from "./SignIn.module.scss"
 
 function SignIn(): JSX.Element {
@@ -16,8 +16,9 @@ function SignIn(): JSX.Element {
 	const [password, setPassword] = useState("")
 	const [remember, setRemember] = useState(false)
 	const [errorMsg, setError] = useState("")
-
+	const [isAuthenticated, setIsAuthenticated] = useState(false)
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault()
@@ -27,16 +28,15 @@ function SignIn(): JSX.Element {
 			setError("Invalid username or password")
 		} else {
 			dispatch(login({ token, remember }))
-
-			let { body } = await profile(token)
-			console.log(body)
-
-			/*
-			const { firstName, lastName, email, id } = profile(token)
-			dispatch(modifyFirstName(firstName))
-			dispatch(modifyLastName(lastName))
-			//link to profile
-			return <Profile firstName={firstName} lastName={lastName} />  */
+			let data = await profile(token)
+			if (!data) alert("Error while charging user please retry")
+			else {
+				const { firstName, lastName } = data.body
+				dispatch(modifyFirstName(firstName))
+				dispatch(modifyLastName(lastName))
+				setIsAuthenticated(true)
+			}
+			isAuthenticated && navigate("/profile")
 		}
 	}
 

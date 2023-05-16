@@ -1,6 +1,10 @@
-import { UserProfile } from "../../utils/Type"
+import { useSelector } from "react-redux"
+import { selectProfile } from "../../utils/slices/profileSlice"
 import styles from "./Profile.module.scss"
-function Profile({ firstName, lastName }: UserProfile): JSX.Element {
+
+function Profile(): JSX.Element {
+	const { firstName, lastName } = useSelector(selectProfile)
+	console.log(firstName)
 	return (
 		<main className={styles.bg_dark}>
 			<div className={styles.header}>

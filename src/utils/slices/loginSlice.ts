@@ -1,18 +1,18 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
-import { LoginState,LoginResponse } from "../Type"
+import { LoginResponse, LoginState } from "../Type"
 
-//ternaire if local storage vide token null sinon local storage token
-//localStorage.getItem("token") === " " ? (initialState) : (initialState: LoginState = { token: localStorage.getItem("token") })
-const initialState: LoginResponse = { token: "" }
+let initialState: LoginResponse
+//Si local storage est vide on initialise le state avec un token vide sinon on initialise le state avec le token de local storage
+localStorage.getItem("token") === null
+	? (initialState = { token: "" })
+	: (initialState = { token: localStorage.getItem("token") as string })
+
 const loginSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-		login: (
-			state,
-			action: PayloadAction<LoginState>
-		) => {
+		login: (state, action: PayloadAction<LoginState>) => {
 			state.token = action.payload.token
 			if (action.payload.remember)
 				localStorage.setItem("token", action.payload.token)
@@ -25,5 +25,5 @@ const loginSlice = createSlice({
 })
 
 export const { login, logout } = loginSlice.actions
-export const selectToken = (state: { auth: LoginState }) => state.auth.token
+export const selectToken = (state: LoginState) => state.token
 export default loginSlice.reducer

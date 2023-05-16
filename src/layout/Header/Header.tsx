@@ -4,16 +4,18 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
 import Logo from "../../assets/argentBankLogo.png"
 import { logout, selectToken } from "../../utils/slices/loginSlice"
+import { selectProfile } from "../../utils/slices/profileSlice"
 import styles from "./Header.module.scss"
 
 function Header(): JSX.Element {
-	const token = null
+	const token = useSelector(selectToken)
 	const dispatch = useDispatch()
 	let profileMenu
-	//destructurer et recup le prenom
+	const { firstName } = useSelector(selectProfile)
 	function signOut() {
 		dispatch(logout())
 	}
+	console.log(token)
 	if (!token) {
 		profileMenu = (
 			<NavLink to='/login'>
@@ -25,6 +27,7 @@ function Header(): JSX.Element {
 			<div className={styles.activeMenu}>
 				<NavLink to='/profiles'>
 					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;
+					{firstName}
 				</NavLink>
 				<button onClick={signOut}>
 					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign
