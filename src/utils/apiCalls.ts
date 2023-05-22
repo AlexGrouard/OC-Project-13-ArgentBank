@@ -43,13 +43,17 @@ export const modifyProfile = async (
 	firstName: string,
 	lastName: string
 ) => {
-	const response = await axios.put<ProfilePutResponse>(
-		`${url}/user/profile`,
-		{
-			firstName,
-			lastName,
-		},
-		{ headers: { Authorization: `Bearer ${token}` } }
-	)
-	return response.data
+	try {
+		const { data } = await axios.put<ProfilePutResponse | undefined>(
+			`${url}/user/profile`,
+			{
+				firstName,
+				lastName,
+			},
+			{ headers: { Authorization: `Bearer ${token}` } }
+		)
+		return data
+	} catch (error) {
+		console.log(error)
+	}
 }

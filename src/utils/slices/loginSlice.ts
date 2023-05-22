@@ -4,9 +4,12 @@ import { LoginResponse, LoginState } from "../Type"
 
 let initialState: LoginResponse
 //Si local storage est vide on initialise le state avec un token vide sinon on initialise le state avec le token de local storage
-localStorage.getItem("token") === null
+localStorage.getItem("token") === null ||
+localStorage.getItem("token") === undefined
 	? (initialState = { token: "" })
-	: (initialState = { token: localStorage.getItem("token") as string })
+	: (initialState = {
+			token: localStorage.getItem("token") as string,
+	  })
 
 const loginSlice = createSlice({
 	name: "auth",

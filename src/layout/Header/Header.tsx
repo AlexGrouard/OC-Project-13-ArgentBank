@@ -1,5 +1,6 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink } from "react-router-dom"
 import Logo from "../../assets/argentBankLogo.png"
@@ -8,21 +9,23 @@ import { selectProfile } from "../../utils/slices/profileSlice"
 import styles from "./Header.module.scss"
 
 function Header(): JSX.Element {
-	const token = useSelector(selectToken)
+	let token = useSelector(selectToken)
+	const storageToken = localStorage.getItem("token")
+	console.log(storageToken)
 	const dispatch = useDispatch()
-	let profileMenu
+	const [isAuthenticated, setIsAuthenticated] = useState(false)
 	const { firstName } = useSelector(selectProfile)
+	let profileMenu
 	function signOut() {
 		dispatch(logout())
 	}
-	console.log(token)
-	if (!token) {
-		profileMenu = (
-			<NavLink to='/login'>
-				<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign In
-			</NavLink>
-		)
-	} else {
+	useMemo(() => {
+		if (token !== null && token !== undefined && token !== "") {
+			setIsAuthenticated(true)
+		}
+	}, [token])
+
+	if (isAuthenticated) {
 		profileMenu = (
 			<div className={styles.activeMenu}>
 				<NavLink to='/profiles'>
@@ -34,6 +37,12 @@ function Header(): JSX.Element {
 					out
 				</button>
 			</div>
+		)
+	} else {
+		profileMenu = (
+			<NavLink to='/login'>
+				<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign In
+			</NavLink>
 		)
 	}
 	return (

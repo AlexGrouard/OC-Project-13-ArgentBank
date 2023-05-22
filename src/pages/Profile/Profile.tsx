@@ -1,10 +1,59 @@
-import { useSelector } from "react-redux"
-import { selectProfile } from "../../utils/slices/profileSlice"
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { modifyProfile } from "../../utils/apiCalls"
+import { selectToken } from "../../utils/slices/loginSlice"
+import {
+	modifyFirstName,
+	modifyLastName,
+	selectProfile,
+} from "../../utils/slices/profileSlice"
 import styles from "./Profile.module.scss"
 
 function Profile(): JSX.Element {
 	const { firstName, lastName } = useSelector(selectProfile)
-	console.log(firstName)
+	const token = useSelector(selectToken)
+	console.log("token: " + token)
+	const [newFirstName, setNewFirstName] = useState(firstName)
+	const [newLastName, setNewLastName] = useState(lastName)
+	const dispatch = useDispatch()
+
+	async function handleSave(e: any) {
+		e.preventDefault()
+		const data = await modifyProfile(token, newFirstName, newLastName)
+		console.log(data)
+		if (!data) alert("Error while charging user please retry")
+		else {
+			const { firstName, lastName } = data.body
+			dispatch(modifyFirstName(firstName))
+			dispatch(modifyLastName(lastName))
+		}
+	}
+	const handleEdit = () => {
+		return (
+			<div className={styles.header}>
+				<h1>
+					Welcome back
+					<br />
+					<input
+						type='text'
+						placeholder={firstName}
+						value={newFirstName}
+						onChange={(e) => setNewFirstName(e.target.value)}
+					/>
+					<input
+						type='text'
+						placeholder={lastName}
+						value={newLastName}
+						onChange={(e) => setNewLastName(e.target.value)}
+					/>
+					<button className={styles.save_button} onClick={handleSave}>
+						Save
+					</button>
+					<button className={styles.cancel_button}>Cancel</button>
+				</h1>
+			</div>
+		)
+	}
 	return (
 		<main className={styles.bg_dark}>
 			<div className={styles.header}>
@@ -13,7 +62,9 @@ function Profile(): JSX.Element {
 					<br />
 					{firstName} {lastName}!
 				</h1>
-				<button className={styles.edit_button}>Edit Name</button>
+				<button className={styles.edit_button} onClick={handleEdit}>
+					Edit Name
+				</button>
 			</div>
 			<h2 className={styles.sr_only}>Accounts</h2>
 			<section className={styles.account}>

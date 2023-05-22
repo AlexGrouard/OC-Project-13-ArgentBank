@@ -21,7 +21,7 @@ export type ProfilePostResponse = {
 export type ProfilePutResponse = {
 	status: number
 	message: string
-	body: UserId
+	body: UserProfile
 }
 
 export type LoginState = {
