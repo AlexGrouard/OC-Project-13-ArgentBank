@@ -1,41 +1,40 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import Logo from "../../assets/argentBankLogo.png"
-import { logout, selectToken } from "../../utils/slices/loginSlice"
+import {
+	isLoggedIn,
+	logout,
+	selectIsAuthenticated,
+} from "../../utils/slices/loginSlice"
 import { selectProfile } from "../../utils/slices/profileSlice"
 import styles from "./Header.module.scss"
 
 function Header(): JSX.Element {
-	let token = useSelector(selectToken)
-	const storageToken = localStorage.getItem("token")
-	console.log(storageToken)
 	const dispatch = useDispatch()
-	const [isAuthenticated, setIsAuthenticated] = useState(false)
+	const navigate = useNavigate()
 	const { firstName } = useSelector(selectProfile)
+	const isAuthenticated = useSelector(selectIsAuthenticated)
 	let profileMenu
+
 	function signOut() {
 		dispatch(logout())
+		dispatch(isLoggedIn(false))
+		navigate("/login")
 	}
-	useMemo(() => {
-		if (token !== null && token !== undefined && token !== "") {
-			setIsAuthenticated(true)
-		}
-	}, [token])
 
 	if (isAuthenticated) {
 		profileMenu = (
 			<div className={styles.activeMenu}>
-				<NavLink to='/profiles'>
+				<NavLink to='/profile' className={styles.main_nav_item}>
 					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;
 					{firstName}
 				</NavLink>
-				<button onClick={signOut}>
+				<Link to='/login' onClick={signOut} className={styles.main_nav_item}>
 					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign
 					out
-				</button>
+				</Link>
 			</div>
 		)
 	} else {

@@ -12,7 +12,6 @@ import styles from "./Profile.module.scss"
 function Profile(): JSX.Element {
 	const { firstName, lastName } = useSelector(selectProfile)
 	const token = useSelector(selectToken)
-	console.log("token: " + token)
 	const [newFirstName, setNewFirstName] = useState(firstName)
 	const [newLastName, setNewLastName] = useState(lastName)
 	const dispatch = useDispatch()

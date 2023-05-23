@@ -1,14 +1,16 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
-import { LoginResponse, LoginState } from "../Type"
+import { LoginState } from "../Type"
 
-let initialState: LoginResponse
+let initialState: LoginState
 //Si local storage est vide on initialise le state avec un token vide sinon on initialise le state avec le token de local storage
 localStorage.getItem("token") === null ||
 localStorage.getItem("token") === undefined
-	? (initialState = { token: "" })
+	? (initialState = { token: "", remember: false, isAuthenticated: false })
 	: (initialState = {
 			token: localStorage.getItem("token") as string,
+			remember: false,
+			isAuthenticated: false,
 	  })
 
 const loginSlice = createSlice({
@@ -17,6 +19,7 @@ const loginSlice = createSlice({
 	reducers: {
 		login: (state, action: PayloadAction<LoginState>) => {
 			state.token = action.payload.token
+			isLoggedIn(action.payload.isAuthenticated)
 			if (action.payload.remember)
 				localStorage.setItem("token", action.payload.token)
 		},
@@ -24,9 +27,15 @@ const loginSlice = createSlice({
 			state = initialState
 			localStorage.removeItem("token")
 		},
+		isLoggedIn: (state, action: PayloadAction<boolean>) => {
+			state.isAuthenticated = action.payload
+		},
 	},
 })
 
-export const { login, logout } = loginSlice.actions
-export const selectToken = (state: LoginState) => state.token
+export const { login, logout, isLoggedIn } = loginSlice.actions
+
+export const selectToken = (state: { auth: LoginState }) => state.auth.token
+export const selectIsAuthenticated = (state: { auth: LoginState }) =>
+	state.auth.isAuthenticated
 export default loginSlice.reducer

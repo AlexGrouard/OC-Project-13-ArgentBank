@@ -4,7 +4,7 @@ import profileReducer from "./slices/profileSlice"
 
 export const store = configureStore({
 	reducer: {
-		login: loginReducer,
+		auth: loginReducer,
 		profile: profileReducer,
 	},
 	devTools: process.env.NODE_ENV !== "production",

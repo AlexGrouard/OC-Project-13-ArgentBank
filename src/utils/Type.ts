@@ -27,6 +27,7 @@ export type ProfilePutResponse = {
 export type LoginState = {
 	token: string
 	remember: boolean
+	isAuthenticated: boolean
 }
 
 export type ProfileState = {
