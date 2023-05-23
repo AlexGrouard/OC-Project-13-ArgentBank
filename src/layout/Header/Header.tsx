@@ -32,8 +32,7 @@ function Header(): JSX.Element {
 					{firstName}
 				</NavLink>
 				<Link to='/login' onClick={signOut} className={styles.main_nav_item}>
-					<FontAwesomeIcon icon={icon({ name: "circle-user" })} /> &nbsp;Sign
-					out
+					<FontAwesomeIcon icon={icon({ name: "sign-out" })} /> &nbsp;Sign out
 				</Link>
 			</div>
 		)
