@@ -11,6 +11,14 @@
 }
 
 .header {
-    color: #fff;
+    color: $primaryColor;
     margin-bottom: 2rem;
+}
+
+.edit_button {
+    border-color: $secondaryColor;
+    background-color: $secondaryColor;
+    color:$primaryColor;
+    font-weight: bold;
+    padding: 10px;
 }

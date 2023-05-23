@@ -1,12 +1,16 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixin.scss';
 
+.sr_only {
+    @include srOnly;
+}
+
 .account {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 1px solid black;
-    background-color: #fff;
+    background-color: $primaryColor;
     width: 80%;
     margin: 0 auto;
     flex-direction: column;
@@ -36,7 +40,7 @@
 .edit_button {
     border-color: $secondaryColor;
     background-color: $secondaryColor;
-    color: #fff;
+    color: $primaryColor;
     font-weight: bold;
     padding: 10px;
 }
@@ -48,9 +52,9 @@
     font-size: 1.1rem;
     font-weight: bold;
     margin-top: 1rem;
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
+    border-color: $secondaryColor;
+    background-color: $secondaryColor;
+    color: $primaryColor;
 }
 
 @media (min-width: 720px) {
