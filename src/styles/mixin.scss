@@ -1,6 +1,7 @@
 @mixin main{
     display: flex;
     flex: 1;
+    min-height: 88vh;
 }
 @mixin darkBG {
     background-color: $darkBackground;

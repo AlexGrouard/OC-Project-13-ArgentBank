@@ -5,7 +5,6 @@
     color: $primaryColor;
     margin-bottom: 2rem;
 }
-
 .edit_button, .save_button, .cancel_button {
     border-color: $secondaryColor;
     background-color: $secondaryColor;
@@ -29,3 +28,14 @@
         margin-right: 1rem ;
     }
 }
+
+@media (max-width: 720px) {
+    .input_wrapper {
+        display: block;
+        text-align: center;
+        margin : 1rem auto;
+        input {
+            width: 200px;
+        }
+    }
+  }
