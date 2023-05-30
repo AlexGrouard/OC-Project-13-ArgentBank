@@ -38,4 +38,3 @@ Then clone this repo.
 cd into it.
 
 run the `npm start` command to launch the project.
-
