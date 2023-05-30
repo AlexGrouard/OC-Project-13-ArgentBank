@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# SportSee
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+A dashboard for athletes who like to track their performance.
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+This project work in conjonction with a back-end API or Mockup data.
 
-### `npm start`
+### Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- <img src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" width="24"/> React
+- <img src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" width="24"/> TypeScript
+- <img src="raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png" width="24"/> Redux
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Dependencies
 
-### `npm test`
+- [react-router-dom](https://reactrouter.com/en/main)
+- [sass](https://sass-lang.com/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [NodeJS v18.9.0](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
+- [yarn](https://yarnpkg.com/getting-started/install)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Backend Install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+First clone the repo from [https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API).
 
-### `npm run eject`
+Follow the instructions to install the Database and API
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Front-end Install
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Then clone this repo.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+cd into it.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+run the `npm start` command to launch the project.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
