@@ -1,16 +1,16 @@
-# SportSee
+# Argent Bank
 
-A dashboard for athletes who like to track their performance.
+A bank website 
 
 ## Introduction
 
-This project work in conjonction with a back-end API or Mockup data.
+This project work in conjonction with a back-end API and learn Redux.
 
 ### Technologies
 
 - <img src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" width="24"/> React
 - <img src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" width="24"/> TypeScript
-- <img src="raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png" width="24"/> Redux
+- <img src="https://raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png" width="24"/> Redux
 
 ### Dependencies
 
