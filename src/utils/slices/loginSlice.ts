@@ -10,7 +10,7 @@ localStorage.getItem("token") === undefined
 	: (initialState = {
 			token: localStorage.getItem("token") as string,
 			remember: false,
-			isAuthenticated: false,
+			isAuthenticated: true,
 	  })
 
 const loginSlice = createSlice({

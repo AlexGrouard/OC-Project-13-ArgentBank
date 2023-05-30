@@ -1,14 +1,21 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import Logo from "../../assets/argentBankLogo.png"
+import { profile } from "../../utils/apiCalls"
 import {
 	isLoggedIn,
+	login,
 	logout,
 	selectIsAuthenticated,
 } from "../../utils/slices/loginSlice"
-import { selectProfile } from "../../utils/slices/profileSlice"
+import {
+	modifyFirstName,
+	modifyLastName,
+	selectProfile,
+} from "../../utils/slices/profileSlice"
 import styles from "./Header.module.scss"
 
 function Header(): JSX.Element {
@@ -17,6 +24,26 @@ function Header(): JSX.Element {
 	const { firstName } = useSelector(selectProfile)
 	const isAuthenticated = useSelector(selectIsAuthenticated)
 	let profileMenu
+
+	async function logIn() {
+		const Localtoken = localStorage.getItem("token")
+		const sessionToken = sessionStorage.getItem("token")
+		const token = Localtoken || sessionToken
+		if (token !== null && token !== undefined && token !== "") {
+			dispatch(login({ token, remember: true, isAuthenticated: true }))
+			let data = await profile(token)
+			if (!data) alert("Error while charging user please retry")
+			else {
+				dispatch(isLoggedIn(true))
+				const { firstName, lastName } = data.body
+				dispatch(modifyFirstName(firstName))
+				dispatch(modifyLastName(lastName))
+			}
+		}
+	}
+	useEffect(() => {
+		logIn()
+	})
 
 	function signOut() {
 		dispatch(logout())
