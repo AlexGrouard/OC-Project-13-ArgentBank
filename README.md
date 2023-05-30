@@ -22,6 +22,7 @@ This project work in conjonction with a back-end API and learn Redux.
 ### Prerequisites
 
 - [NodeJS v18.9.0](https://nodejs.org/en/)
+- [mongoDB](https://yarnpkg.com/getting-started/install)
 - [npm](https://www.npmjs.com/)
 - [yarn](https://yarnpkg.com/getting-started/install)
 
